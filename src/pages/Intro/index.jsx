@@ -1,5 +1,5 @@
 import React from 'react'
-import NodeChart from './components/nodeChart' 
+//  import NodeChart from './components/nodeChart' 
 import './index.css'
 import pic_me from './me.png'
 import pic_linkedin from './linkedin.png'
@@ -26,7 +26,6 @@ const Intro = () => {
       </div>
 
       <div className="page2">
-        <NodeChart />
       </div>
 
       <div className="page3">
