@@ -29,6 +29,7 @@ h2 {
   min-height: 100vh;
   text-align: center;
   background-color: #854d88;
+  display: block;
 }
 .page3{
   padding-top: 10vh;
@@ -51,12 +52,43 @@ h2 {
   box-shadow: 0 0 10px 5px #ffffff;
 }
 .myPic{
-  height: 20vh;
+  height: 25vh;
 }
-.page2Content{
+.page3Content{
   padding: 40px;
   max-width: 1000px;
   width: auto;
   margin:0 auto;
   background-color: aquamarine;
+}
+.mapContainer{
+  height: 100vh;
+  width:100%;
+  position: absolute;
+}
+.mapCover{
+  position: absolute;
+  margin-top: 10vh;
+  height: 40vh;
+  padding-top: 5vh;
+  font-weight: 600;
+  width:30vh;
+  right: 10vh;
+  z-index: 1;
+  font-size:3vh;
+  color:#854d88;
+  background-color: rgba(200,200,200,0.8);
+  line-height: 200%;
+}
+.itemToClick{
+  color:#854d88;
+  cursor: pointer;
+  padding: 1vh;
+}
+.itemToClick:hover{
+  color: #fff;
+  background-color: #854d88;
+}
+.mpaCoverTitle{
+  font-size: 4vh;
 }
