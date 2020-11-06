@@ -4,6 +4,12 @@ body {
   font-size: calc(16px + 0.5vw);
   -webkit-font-smoothing: antialiased;
 }
+a{
+  color: #fff;
+}
+a:hover{
+  background-color: rgba(255,255,255,0.3);
+}
 h1 {
   font-size: 2.6em;
   font-weight: 500;
@@ -13,6 +19,8 @@ h1 {
 h2 {
   font-size: 1.4em;
   font-weight: 500;
+  margin-block-start: 0.4em;
+  margin-block-end: 0.4em;
 }
 .page1{
   text-align: center;
@@ -37,7 +45,15 @@ h2 {
   height: auto;
   min-height: 80vh;
   text-align: center;
-  background-color: #b55a00;
+  background-color: #6f572d;
+}
+.page4{
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+  height: auto;
+  min-height: 80vh;
+  text-align: center;
+  background-color: #4b4d85;
 }
 .imgToClick{
   border: solid #ffffff 4px;
@@ -55,11 +71,22 @@ h2 {
   height: 25vh;
 }
 .page3Content{
+  text-align: left;
   padding: 40px;
   max-width: 1000px;
   width: auto;
   margin:0 auto;
-  background-color: aquamarine;
+  border: solid 4px #d9d9d9;
+  color: #d9d9d9;
+}
+.page4Content{
+  text-align: left;
+  padding: 40px;
+  max-width: 1000px;
+  width: auto;
+  margin:0 auto;
+  border: solid 1px #d9d9d9;
+  color: #d9d9d9;
 }
 .mapContainer{
   height: 100vh;
@@ -68,12 +95,12 @@ h2 {
 }
 .mapCover{
   position: absolute;
-  margin-top: 10vh;
+  margin-top: 50vh;
   height: 40vh;
   padding-top: 5vh;
   font-weight: 600;
   width:30vh;
-  right: 10vh;
+  right: 5vh;
   z-index: 1;
   font-size:3vh;
   color:#854d88;
@@ -84,6 +111,7 @@ h2 {
   color:#854d88;
   cursor: pointer;
   padding: 1vh;
+  text-decoration:underline;
 }
 .itemToClick:hover{
   color: #fff;
@@ -91,4 +119,14 @@ h2 {
 }
 .mpaCoverTitle{
   font-size: 4vh;
+}
+.popup{
+  font-size: 3vh;
+  line-height: 140%;
+}
+.popup > .mapboxgl-popup-content{
+  background-color: rgba(200,200,200,0.8);
+}
+.popup > .mapboxgl-popup-tip{
+  border-top-color: rgba(200,200,200,0.8);
 }
