@@ -1,5 +1,4 @@
 import React from 'react'
-import './index.css'
 import pic_me from './me.png'
 import pic_linkedin from './linkedin.png'
 import pic_github from './github.png'
@@ -7,6 +6,7 @@ import pic_zhihu from './zhihu.png'
 import pic_csdn from './csdn.png'
 import pic_sign from './sign.png'
 import mapboxgl from 'mapbox-gl';
+
 
 class Intro extends React.Component {
   constructor() {
@@ -102,7 +102,7 @@ class Intro extends React.Component {
             He is currently a graduate student at The Chinese Univeristy of Hongkong, China.
             </p>
             <p>
-            He has research experience in remote sensing image processing, spatial analysis, etc. 
+            He has <a href='./Research'>research experience</a> in remote sensing image processing, spatial analysis, etc. 
             But now his interests are mainly concentrated in Web graphics, human-computer interaction, and data visualization.
             </p>
             <p>
@@ -134,6 +134,8 @@ class Intro extends React.Component {
         <div className="page4">
           <div className="page4Content">
             <h2>Demos</h2>
+            <a>Axios-based HTTP request constructor</a>
+            
             
           </div>
         </div>
