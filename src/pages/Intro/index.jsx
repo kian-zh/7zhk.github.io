@@ -102,7 +102,7 @@ class Intro extends React.Component {
             He is currently a graduate student at The Chinese Univeristy of Hongkong, China.
             </p>
             <p>
-            He has <a href='./Research'>research experience</a> in remote sensing image processing, spatial analysis, etc. 
+            He has <a href='./#/Research'>research experience</a> in remote sensing image processing, spatial analysis, etc. 
             But now his interests are mainly concentrated in Web graphics, human-computer interaction, and data visualization.
             </p>
             <p>
@@ -134,7 +134,7 @@ class Intro extends React.Component {
         <div className="page4">
           <div className="page4Content">
             <h2>Demos</h2>
-            <a>Axios-based HTTP request constructor</a>
+            <a href='./#/HttpPage'>Axios-based HTTP request constructor</a>
             
             
           </div>

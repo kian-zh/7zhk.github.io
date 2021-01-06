@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import Intro from './pages/Intro'
 import Research from './pages/Research'
+import HttpPage from './pages/HttpPage'
 import * as serviceWorker from './serviceWorker';
 import './index.css'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <BrowserRouter>
+    <HashRouter>
       <Switch>
 
         <Route path="/Research">
           <Research />
+        </Route>
+
+        <Route path="/HttpPage">
+          <HttpPage />
         </Route>
 
         <Route path="/">
@@ -20,8 +24,7 @@ ReactDOM.render(
         </Route>
 
       </Switch>
-    </BrowserRouter>
-  </React.StrictMode>,
+    </HashRouter>,
   document.getElementById('root')
 );
 
