@@ -4,6 +4,7 @@ import { HashRouter, Route, Switch } from 'react-router-dom';
 import Intro from './pages/Intro'
 import Research from './pages/Research'
 import HttpPage from './pages/HttpPage'
+import ColorPicker from './pages/ColorPicker'
 import * as serviceWorker from './serviceWorker';
 import './index.css'
 
@@ -17,6 +18,10 @@ ReactDOM.render(
 
         <Route path="/HttpPage">
           <HttpPage />
+        </Route>
+
+        <Route path="/ColorPicker">
+          <ColorPicker />
         </Route>
 
         <Route path="/">
