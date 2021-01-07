@@ -11,7 +11,7 @@ class ColorPicker extends React.Component {
         H: '0',
         S: '50%',
         L: '50%',
-        A: '1',
+        A: '100%',
       },
       canvas1Click: {
         x:0,
@@ -21,7 +21,7 @@ class ColorPicker extends React.Component {
         x:360,
       },
       canvas3Click: {
-        x:360,
+        x:0,
       }
     };
   }

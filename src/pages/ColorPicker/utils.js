@@ -1,6 +1,6 @@
 
 //  input:  'hsl(0,50%,32%)'
-//  ouput:  'rgb(122, 41, 41)'
+//  ouput:  'rgb(122,41,41)'
 const hsl2rgb = (stringHSL) => {
     const HSL = stringHSL.replace(/(?:\(|\)|hsl|%)*/g, "").split(",");
     const h = Number(HSL[0])/360
@@ -27,7 +27,7 @@ const hsl2rgb = (stringHSL) => {
     return `rgb(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)})`;
 }
 
-//  input  rgb(191, 64, 64)
+//  input  rgb(191,64,64)
 //  output  #bf4040
 const hsla2rgba = (stringHSLA) => {
     const HSL = stringHSLA.replace(/(?:\(|\)|hsl|%)*/g, "").split(",");
@@ -56,8 +56,8 @@ const hsla2rgba = (stringHSLA) => {
     return `rgba(${Math.round(r * 255)}, ${Math.round(g * 255)}, ${Math.round(b * 255)}, ${a})`;
 }
 
-//  input   hsl(0,50%,50%,1)
-//  output  rgba(191, 64, 64, 0.01)
+//  input   hsl(0,50%,50%,1%)
+//  output  rgba(191,64,64,0.01)
 const rgb2hex = (stringRGB) =>{
     const rgb = stringRGB.split(',');
     const r = parseInt(rgb[0].split('(')[1]);
