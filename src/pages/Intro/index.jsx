@@ -6,6 +6,7 @@ import pic_zhihu from './zhihu.png'
 import pic_csdn from './csdn.png'
 import pic_sign from './sign.png'
 import mapboxgl from 'mapbox-gl';
+import style from './index.module.css'
 
 
 class Intro extends React.Component {
@@ -66,7 +67,7 @@ class Intro extends React.Component {
       { this.state.popup.remove(); }
       this.state.map.flyTo(this.state.point[index]);
 
-      const popup = new mapboxgl.Popup({offset: 50, closeButton: false, className: `popup`})
+      const popup = new mapboxgl.Popup({offset: 50, closeButton: false, className: style.popup})
         .setLngLat(this.state.point[index].center)
         .setHTML(this.state.text[index])
         .setMaxWidth("400px")
@@ -77,25 +78,25 @@ class Intro extends React.Component {
 
   render() { 
     return (
-      <div className="body">
+      <div>
         <div style={{backgroundColor:'teal', position:'fixed',top:'0px',left:'0px',right:'0px',bottom:'0px',zIndex:'-99'}}>
         </div>
 
         {/*第一页*/}
-        <div className="page1">
-          <img className="myPic" alt='My Picture' src={pic_me} /><br/>
+        <div className={style.page1}>
+          <img className={style.myPic} alt='My Picture' src={pic_me} /><br/>
           <h1 style={{ lineHeight:'10vh'}}>Jingyuan Zhang <span style={{whiteSpace:'nowrap'}}>张景源</span></h1>
           <h2>Front-End Developer & <span style={{whiteSpace:'nowrap'}}>GIS Developer</span></h2>
           <h2>Working<span style={{whiteSpace:'nowrap'}}></span> for Better User Interface</h2>
-          <img className="imgToClick" alt='Pictrue of Linkedin' src={pic_linkedin} onClick={()=>{window.open("https://www.linkedin.com/in/zhang1998/")}} />
-          <img className="imgToClick" alt='Pictrue of Zhihu' src={pic_zhihu} onClick={()=>{window.open("https://www.zhihu.com/people/sgis")}} />
-          <img className="imgToClick" alt='Pictrue of CSDN' src={pic_csdn} onClick={()=>{window.open("https://blog.csdn.net/nju_zjy")}} />
-          <img className="imgToClick" alt='Pictrue of Github' src={pic_github} onClick={()=>{window.open("https://github.com/kian-zh")}} />
+          <img className={style.imgToClick} alt='Pictrue of Linkedin' src={pic_linkedin} onClick={()=>{window.open("https://www.linkedin.com/in/zhang1998/")}} />
+          <img className={style.imgToClick} alt='Pictrue of Zhihu' src={pic_zhihu} onClick={()=>{window.open("https://www.zhihu.com/people/sgis")}} />
+          <img className={style.imgToClick} alt='Pictrue of CSDN' src={pic_csdn} onClick={()=>{window.open("https://blog.csdn.net/nju_zjy")}} />
+          <img className={style.imgToClick} alt='Pictrue of Github' src={pic_github} onClick={()=>{window.open("https://github.com/kian-zh")}} />
         </div>
 
         {/*第二页*/}
-        <div className="page3">
-          <div className="page3Content">
+        <div className={style.page3}>
+          <div className={style.page3Content}>
             <h2 style={{color: '#fff'}}>Biography</h2>
             <p>
             Jingyuan Zhang received the BSc degree in GIS from Nanjing Univeristy, China, in 2020.
@@ -119,29 +120,44 @@ class Intro extends React.Component {
         </div>
 
         {/*第三页*/}
-        <div className="page2">
-          <div className="mapCover">
-            <span className="mpaCoverTitle">TimeLine</span><br/>
-            <span className="itemToClick" onClick={()=>this.clickTime(0)}>1998-2013</span><br/>
-            <span className="itemToClick"  onClick={()=>this.clickTime(1)}>2013-2016</span><br/>
-            <span className="itemToClick"  onClick={()=>this.clickTime(2)}>2016-2020</span><br/>
-            <span className="itemToClick"  onClick={()=>this.clickTime(3)}>2020-2021</span><br/>
+        <div className={style.page2}>
+          <div className={style.mapCover}>
+            <span className={style.mpaCoverTitle}>TimeLine</span><br/>
+            <span className={style.itemToClick}  onClick={()=>this.clickTime(0)}>1998-2013</span><br/>
+            <span className={style.itemToClick}  onClick={()=>this.clickTime(1)}>2013-2016</span><br/>
+            <span className={style.itemToClick}  onClick={()=>this.clickTime(2)}>2016-2020</span><br/>
+            <span className={style.itemToClick}  onClick={()=>this.clickTime(3)}>2020-2021</span><br/>
           </div>
-          <div ref={el => this.mapContainer = el} className="mapContainer" />
+          <div ref={el => this.mapContainer = el} className={style.mapContainer} />
         </div>
 
         {/*第四页*/}
-        <div className="page4">
-          <div className="page4Content">
+        <div className={style.page4}>
+          <div className={style.page4Content}>
             <h2>Demos</h2>
             <a href='./#/HttpPage'>Axios-based HTTP request constructor</a><br/>
             <a href='./#/ColorPicker'>Color picker using canvas</a>
           </div>
         </div>
 
-        <div className="footer">
+
+        {/*第四页        */}
+        <div className={style.page5}>
+          <div className={style.page4Content}>
+            <h2>Friends</h2>
+            <a href='./#/HttpPage'>Xu Xue</a> in Programming Language
+            <br/>
+            <a href='./#/HttpPage'>Han Wang</a> in Big Data GIS
+            <br/>
+            <a href='./#/ColorPicker'>Yuting Wu</a> in Front-end development
+          </div>
+        </div>
+
+
+
+        <div className={style.footer}>
           This page was built with React<br/>
-          and updated at 12 Nov. 2020<br/>
+          and updated at 11 Jan. 2021<br/>
           版权所有©<img src={pic_sign} style={{height:'10vh',transform:'translateY(4vh)'}} />All rights reserved.
         </div>
 
