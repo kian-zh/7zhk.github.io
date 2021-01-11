@@ -1,6 +1,6 @@
 import { hsl2rgb, rgb2hex, hsla2rgba } from './utils';
 import React from 'react'
-import style from './index.module.css'
+import style from './index.module.less'
 import ImgBackground from './background.png'
 
 class ColorPicker extends React.Component {
