@@ -136,8 +136,11 @@ class Intro extends React.Component {
         <div className={style.page4}>
           <div className={style.page4Content}>
             <h2>Demos</h2>
-            <a href='./#/HttpPage'>Axios-based HTTP request constructor</a><br/>
+            <a href='./#/HttpPage'>Axios-based HTTP request constructor</a>
+            <br/>
             <a href='./#/ColorPicker'>Color picker using canvas</a>
+            <br/>
+            <a href='./#/DecodeJson'>JSON data decoder</a>
           </div>
         </div>
 

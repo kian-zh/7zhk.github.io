@@ -2,6 +2,7 @@ import React from 'react'
 import style from './index.module.less'
 import wasmSVG from './wasm.svg'
 import modisSVG from './satellite.svg'
+import bookSVG from './book.svg'
 
 class Resource extends React.Component {
   constructor() {
@@ -10,12 +11,16 @@ class Resource extends React.Component {
       contentList: [
         {name: 'WASM (Emscripten) Installation', url: './data/wasmInstall.rar', logo: wasmSVG, width: '20vh'},
         {name: 'MODIS Grid Data', url: './data/MODIS_Grid.zip', logo: modisSVG, width: '10vh'},
+        {name: 'The ArcGIS Book (Zh_CN)', url: './data/The-ArcGIS-Book_zh-CN.pdf', logo: bookSVG, width: '7vh'},
         {name: 'WASM (Emscripten) Installation', url: './data/wasmInstall.rar', logo: wasmSVG, width: '20vh'},
         {name: 'MODIS Grid Data', url: './data/MODIS_Grid.zip', logo: modisSVG, width: '10vh'},
+        {name: 'The ArcGIS Book (Zh_CN)', url: './data/The-ArcGIS-Book_zh-CN.pdf', logo: bookSVG, width: '7vh'},
         {name: 'WASM (Emscripten) Installation', url: './data/wasmInstall.rar', logo: wasmSVG, width: '20vh'},
         {name: 'MODIS Grid Data', url: './data/MODIS_Grid.zip', logo: modisSVG, width: '10vh'},
+        {name: 'The ArcGIS Book (Zh_CN)', url: './data/The-ArcGIS-Book_zh-CN.pdf', logo: bookSVG, width: '7vh'},
         {name: 'WASM (Emscripten) Installation', url: './data/wasmInstall.rar', logo: wasmSVG, width: '20vh'},
-        {name: 'MODIS Grid Data', url: './data/MODIS_Grid.zip', logo: modisSVG, width: '10vh'}
+        {name: 'MODIS Grid Data', url: './data/MODIS_Grid.zip', logo: modisSVG, width: '10vh'},
+        {name: 'The ArcGIS Book (Zh_CN)', url: './data/The-ArcGIS-Book_zh-CN.pdf', logo: bookSVG, width: '7vh'},
       ],
       listDom: []
     };
