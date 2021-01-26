@@ -5,8 +5,10 @@ import Intro from './pages/Intro'
 import Research from './pages/Research'
 import HttpPage from './pages/HttpPage'
 import ColorPicker from './pages/ColorPicker'
+import Resource from './pages/Resources';
 import * as serviceWorker from './serviceWorker';
 import './index.css'
+
 
 ReactDOM.render(
     <HashRouter>
@@ -22,6 +24,10 @@ ReactDOM.render(
 
         <Route path="/ColorPicker">
           <ColorPicker />
+        </Route>
+
+        <Route path="/Resource">
+          <Resource />
         </Route>
 
         <Route path="/">

@@ -6,6 +6,9 @@
 /.pnp
 .pnp.js
 
+# data
+*.rar
+
 # testing
 /coverage
 
