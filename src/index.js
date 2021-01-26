@@ -6,6 +6,7 @@ import Research from './pages/Research'
 import HttpPage from './pages/HttpPage'
 import ColorPicker from './pages/ColorPicker'
 import Resource from './pages/Resources';
+import DecodeJson from './pages/DecodeJson';
 import * as serviceWorker from './serviceWorker';
 import './index.css'
 
@@ -28,6 +29,10 @@ ReactDOM.render(
 
         <Route path="/Resource">
           <Resource />
+        </Route>
+
+        <Route path="/DecodeJson">
+          <DecodeJson />
         </Route>
 
         <Route path="/">

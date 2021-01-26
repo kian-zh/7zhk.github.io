@@ -4,10 +4,11 @@ import style from './index.module.less'
 function DecodeJson () {
     const [jsonData, setJsonData] = useState({});
 
-    return 
+    return (
     <div>
-        Hello
+        Under Construction
     </div>
+    )
 }
 
 export default DecodeJson

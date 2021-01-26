@@ -100,8 +100,8 @@ class Intro extends React.Component {
           <div className={style.page3Content}>
             <h2 style={{color: '#fff'}}>Biography</h2>
             <p>
-            Jingyuan Zhang received the BSc degree in GIS from Nanjing Univeristy, China, in 2020.
-            He is currently a graduate student at The Chinese Univeristy of Hongkong, China.
+            Jingyuan Zhang received the BSc degree in GIS from Nanjing Univeristy, in 2020.
+            He is currently a graduate student at The Chinese Univeristy of Hongkong.
             </p>
             <p>
             He has <a href='./#/Research'>research experience</a> in remote sensing image processing, spatial analysis, etc. 
@@ -109,7 +109,7 @@ class Intro extends React.Component {
             </p>
             <p>
             Also, he has extensive experience in front-end development and GIS development. 
-            He used to work as an intern at Jiangsu Urban Design and Planning Research Institute, Esri China, and SF-Tech.
+            He used to work as an intern at <a href="http://www.jupchina.com/webpage/index.jsp">JUP</a>, <a style={{whiteSpace:'nowrap'}} href="https://www.geoscene.cn/">Esri China</a>, <a href="https://www.sf-tech.com.cn/">SF-Tech</a> and <a href="https://www.aztech.com/business/">Aztech</a>.
             </p>
             <br/>
             <a href='./cv.pdf'>Full-text Curriculum Vitae</a>
@@ -141,6 +141,8 @@ class Intro extends React.Component {
             <a href='./#/ColorPicker'>Color picker using canvas</a>
             <br/>
             <a href='./#/DecodeJson'>JSON data decoder</a>
+            <br/>
+            <a href='./MP/index.html'>several Map Projection demos</a>
           </div>
         </div>
 
@@ -162,7 +164,9 @@ class Intro extends React.Component {
         <div className={style.footer}>
           <div className={style.footerContent}>
             <div className={style.footerContentPart} style={{'fontSize':'1.8vh'}}>
-              <span><a href='./#/Resource' style={{'fontSize':'2.5vh','color':'rgb(200, 200, 200)'}}>Downloads</a></span>
+              <span><a href='./#/Resource' style={{'fontSize':'2.3vh','color':'rgb(200, 200, 200)'}}>Downloads</a></span>
+              <span style={{'fontSize':'2.3vh','color':'rgb(200, 200, 200)','white-space':'pre'}}>  |  </span>
+              <span><a href='https://blog.csdn.net/nju_zjy/rss/list' style={{'fontSize':'2.3vh','color':'rgb(200, 200, 200)'}}>Blog RSS</a></span>
               <br/>
               <br/>
               <div>
