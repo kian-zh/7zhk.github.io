@@ -8,6 +8,7 @@
 
 # data
 *.rar
+*.zip
 
 # testing
 /coverage

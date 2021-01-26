@@ -11,20 +11,38 @@
     flex-wrap: wrap;
 }
 .card{
-    background-color:rgba(255, 255, 255, 0.4);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+    border: solid 1px azure;
     border-radius: 20px;
     width: 50vh;
     height: 26vh;
     margin: 20px;
-    /* box-shadow:  10px 10px 10px 10px #e2e1e1; */
+    justify-content:center;
+    align-items:center;
+    flex-direction: column;
+    font-size: 3vh;
+    display: flex;
+    cursor: pointer;
+    transition: all ease-out 0.3s;
+}
+.card:hover{
+    transform:translateY(-10px);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.4));
+}
+.nocolorCard{
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.2));
+    border-radius: 20px;
+    flex-direction: column;
+    border: solid 1px azure;
+    opacity: 0.4;
+    font-size: 3vh;
+    width: 50vh;
+    height: 26vh;
+    margin: 20px;
     justify-content:center;
     align-items:center;
     display: flex;
     cursor: pointer;
-    transition: all ease-out 0.2s;
-}
-.card:hover{
-    transform:translateY(-10px)
 }
 .title{
     position: absolute;
