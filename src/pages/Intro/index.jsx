@@ -165,7 +165,7 @@ class Intro extends React.Component {
           <div className={style.footerContent}>
             <div className={style.footerContentPart} style={{'fontSize':'1.8vh'}}>
               <span><a href='./#/Resource' style={{'fontSize':'2.3vh','color':'rgb(200, 200, 200)'}}>Downloads</a></span>
-              <span style={{'fontSize':'2.3vh','color':'rgb(200, 200, 200)','white-space':'pre'}}>  |  </span>
+              <span style={{'fontSize':'2.3vh','color':'rgb(200, 200, 200)','whiteSpace':'pre'}}>  |  </span>
               <span><a href='https://blog.csdn.net/nju_zjy/rss/list' style={{'fontSize':'2.3vh','color':'rgb(200, 200, 200)'}}>Blog RSS</a></span>
               <br/>
               <br/>

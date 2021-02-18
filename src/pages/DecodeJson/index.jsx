@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import style from './index.module.less'
 import _ from 'lodash'
 
@@ -9,12 +9,18 @@ function DecodeJson () {
     const [expandJson, setExpandJson] = useState({});
     const [error, setError] = useState('');
 
+    const refTextarea = useRef(null);
+
+    useEffect(() => {
+        JsonDataUpdate()
+    },[]);
+
     useEffect(() => {
         console.log('reload')
     });
 
-    const JsonDataUpdate = (e)=>{
-        const localJsonText = e.currentTarget.value
+    const JsonDataUpdate = ()=>{
+        const localJsonText = refTextarea.current.value
         try{
             const localJsonObj = JSON.parse(localJsonText)
             const localExpandNode = {}
@@ -96,7 +102,7 @@ function DecodeJson () {
     return (
     <div>
         <section className={style.leftpart}>
-            <textarea className={style.inputBox} defaultValue={defaultJSON} onChange={(e)=>{JsonDataUpdate(e)}}>
+            <textarea className={style.inputBox} defaultValue={defaultJSON} ref={refTextarea} onChange={()=>{JsonDataUpdate()}}>
             </textarea>
         </section>
         <section className={style.rightpart}>
