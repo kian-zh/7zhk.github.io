@@ -143,6 +143,9 @@ class Intro extends React.Component {
             <a href='./#/DecodeJson'>JSON data decoder</a>
             <br/>
             <a href='./MP/index.html'>several Map Projection demos</a>
+            <br/>
+            <a href='./Sprite/webglDemo.html'>WebGL Demo with spriteJS</a>
+            
           </div>
         </div>
 
@@ -183,7 +186,7 @@ class Intro extends React.Component {
               <br/>
               <br/>
               This page was built with React<br/>
-              and updated at 24 Jan. 2021<br/>
+              and updated at 7 Mar. 2021<br/>
               版权所有© 2021
               {/* <img src={pic_sign} style={{height:'6vh',transform:'translateY(0vh)'}} /> */}
               Jingyuan Zhang 
