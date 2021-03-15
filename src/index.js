@@ -7,6 +7,7 @@ import HttpPage from './pages/HttpPage'
 import ColorPicker from './pages/ColorPicker'
 import Resource from './pages/Resources';
 import DecodeJson from './pages/DecodeJson';
+import BuildingLoader from './pages/BuildingLoader';
 import * as serviceWorker from './serviceWorker';
 import './index.css'
 
@@ -33,6 +34,10 @@ ReactDOM.render(
 
         <Route path="/DecodeJson">
           <DecodeJson />
+        </Route>
+
+        <Route path="/BuildingLoader">
+          <BuildingLoader />
         </Route>
 
         <Route path="/">

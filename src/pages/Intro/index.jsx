@@ -36,7 +36,6 @@ class Intro extends React.Component {
 
   //  初始化
   componentDidMount() {
-
     mapboxgl.accessToken = 'pk.eyJ1IjoiemhhbmdqaW5neXVhbiIsImEiOiJja2R5cHhoNXYycGVtMnlteXkwZGViZDc2In0.UhckH-74AgPwMsDhPjparQ';
     
     const map = new mapboxgl.Map({
@@ -145,7 +144,8 @@ class Intro extends React.Component {
             <a href='./MP/index.html'>several Map Projection demos</a>
             <br/>
             <a href='./Sprite/webglDemo.html'>WebGL Demo with spriteJS</a>
-            
+            <br/>
+            <a href='./#/BuildingLoader'>3D building Loader</a>
           </div>
         </div>
 
