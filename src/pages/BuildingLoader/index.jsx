@@ -1,6 +1,8 @@
 import React from 'react'
 import style from './index.module.less'
 import mapboxgl from 'mapbox-gl';
+import defaultJSON from './Futian.json'
+import Button from '@material-ui/core/Button';
 
 class BuildingLoader extends React.Component {
   constructor() {
@@ -12,6 +14,7 @@ class BuildingLoader extends React.Component {
   }
 
   componentDidMount() {
+    console.log(defaultJSON)
     mapboxgl.accessToken = 'pk.eyJ1IjoiemhhbmdqaW5neXVhbiIsImEiOiJja2R5cHhoNXYycGVtMnlteXkwZGViZDc2In0.UhckH-74AgPwMsDhPjparQ';
     
     const map = new mapboxgl.Map({
@@ -28,7 +31,6 @@ class BuildingLoader extends React.Component {
 
     var nav = new mapboxgl.NavigationControl();
     map.addControl(nav, 'top-left');
-
     map.on('load', function () {
         map.addSource('mapbox-dem', {
         'type': 'raster-dem',
@@ -61,10 +63,19 @@ class BuildingLoader extends React.Component {
         <div style={{position:'absolute',width:'100vw',height:'100vh'}}>
             <div className={style.banner}>
                 <h1 className={style.title}>A Web-based 3D Building Loader</h1>
+                <Button disableElevation variant="contained" color="primary"
+                style={{position:'absolute',right:'50px',top:'2vh',height:'5vh'}}
+                >Export</Button>
             </div>
             <div
             style={{width:'100%',height:'90%',backgroundColor:'aqua',position:'absolute', top:'10%'}} 
             ref={el => this.mapContainer = el}>
+            </div>
+            <div className={style.toolWindow}>
+              <h3 style={{fontWeight:'400'}} >Data</h3>
+              <div className={style.listContainer}>
+                
+              </div>
             </div>
         </div>
     );
