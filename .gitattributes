@@ -1,4 +1,4 @@
-*.jsx linguist-language=JavaScript
-*.less linguist-language=CSS
-*.svg linguist-language=CSS
-*.html linguist-language=JavaScript
+*.jsx linguist-language=javascript
+*.less linguist-language=css
+*.svg linguist-language=css
+*.html linguist-language=javascript
