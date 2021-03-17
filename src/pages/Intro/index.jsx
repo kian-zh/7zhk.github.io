@@ -156,7 +156,7 @@ class Intro extends React.Component {
             <h2>Friends</h2>
             <a href='./#/HttpPage'>Xu Xue</a> in Programming Language
             <br/>
-            <a href='./#/HttpPage'>Han Wang</a> in Big Data GIS
+            <a href='./#/HttpPage'>Han Wang</a> in Spatial-Temporal Analysis
             <br/>
             <a href='./#/ColorPicker'>Yuting Wu</a> in Front-end development
           </div>
@@ -175,7 +175,7 @@ class Intro extends React.Component {
               <div>
                 Friends' Links:
                 <br/>
-                <a style={{'color':'rgb(200, 200, 200)'}} href='https://hanwgeek.github.io/'>Han Wang</a> in Big Data GIS
+                <a style={{'color':'rgb(200, 200, 200)'}} href='https://hanwgeek.github.io/'>Han Wang</a> in Spatial-Temporal Analysis
                 <br/>
                 <a style={{'color':'rgb(200, 200, 200)'}} href='https://xuxue.pl'>Xu Xue</a> in Programming Language
                 <br/>
