@@ -1,5 +1,3 @@
-special-vendored-path/* linguist-vendored
-*.jsx linguist-vendored=true
-*.css linguist-vendored=true
-*.less linguist-vendored=true
-*.html linguist-vendored=false
+*.jsx linguist-language=Jsx
+*.less linguist-language=Less
+*.svg linguist-language=SVG
