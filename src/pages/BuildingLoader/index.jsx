@@ -1,8 +1,13 @@
 import React from 'react'
 import style from './index.module.less'
-import mapboxgl from 'mapbox-gl';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import mapboxgl from '!mapbox-gl';
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 import defaultJSON from './Futian.json'
 import Button from '@material-ui/core/Button';
+
+mapboxgl.workerClass = MapboxWorker; 
 
 class BuildingLoader extends React.Component {
   constructor() {
@@ -39,7 +44,7 @@ class BuildingLoader extends React.Component {
         'maxzoom': 20
         });
         // add the DEM source as a terrain layer with exaggerated height
-        map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 1.5 });
+        map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 2.0 });
         // add a sky layer that will show when the map is highly pitched
         map.addLayer({
         'id': 'sky',
@@ -53,6 +58,8 @@ class BuildingLoader extends React.Component {
     });
 
     this.setState({map: map});
+
+    alert('正在建设中！')
   }
 
   componentDidUpdate() {
@@ -74,7 +81,7 @@ class BuildingLoader extends React.Component {
             <div className={style.toolWindow}>
               <h3 style={{fontWeight:'400'}} >Data</h3>
               <div className={style.listContainer}>
-                
+
               </div>
             </div>
         </div>

@@ -186,7 +186,7 @@ class Intro extends React.Component {
               <br/>
               <br/>
               This page was built with React<br/>
-              and updated at 7 Mar. 2021<br/>
+              and updated at 24 Mar. 2021<br/>
               版权所有© 2021
               {/* <img src={pic_sign} style={{height:'6vh',transform:'translateY(0vh)'}} /> */}
               Jingyuan Zhang 
