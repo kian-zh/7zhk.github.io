@@ -5,13 +5,19 @@ import mapboxgl from '!mapbox-gl';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 import defaultJSON from './Futian.json'
+import layer from './class/layer.js'
+
 import Button from '@material-ui/core/Button';
 
-mapboxgl.workerClass = MapboxWorker; 
+import ListView from './components/ListView'
+import AddBoxIcon from '@material-ui/icons/AddBox';
+
+mapboxgl.workerClass = MapboxWorker;
 
 class BuildingLoader extends React.Component {
   constructor() {
     super();
+    const that = this
     this.state = {
         map: ()=>({}),
         layers: [],
@@ -19,9 +25,15 @@ class BuildingLoader extends React.Component {
   }
 
   componentDidMount() {
+
     console.log(defaultJSON)
+    //添加默认图层
+    const layers = this.state.layers
+    const defaultLayer = new layer('Futian Center Area','geojson',defaultJSON,'#ffffff','0.8','','')
+    layers.push(defaultLayer)
+    this.setState({layers:layers})
+    //初始化底图
     mapboxgl.accessToken = 'pk.eyJ1IjoiemhhbmdqaW5neXVhbiIsImEiOiJja2R5cHhoNXYycGVtMnlteXkwZGViZDc2In0.UhckH-74AgPwMsDhPjparQ';
-    
     const map = new mapboxgl.Map({
     container: this.mapContainer,
     //  style: 'mapbox://styles/mapbox/streets-v11',
@@ -43,9 +55,7 @@ class BuildingLoader extends React.Component {
         'tileSize': 512,
         'maxzoom': 20
         });
-        // add the DEM source as a terrain layer with exaggerated height
         map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 2.0 });
-        // add a sky layer that will show when the map is highly pitched
         map.addLayer({
         'id': 'sky',
         'type': 'sky',
@@ -65,6 +75,8 @@ class BuildingLoader extends React.Component {
   componentDidUpdate() {
   }
 
+
+
   render() {
     return (
         <div style={{position:'absolute',width:'100vw',height:'100vh'}}>
@@ -79,9 +91,15 @@ class BuildingLoader extends React.Component {
             ref={el => this.mapContainer = el}>
             </div>
             <div className={style.toolWindow}>
-              <h3 style={{fontWeight:'400'}} >Data</h3>
+              <h3 style={{fontWeight:'400'}} >DATA</h3>
               <div className={style.listContainer}>
-
+                <ListView 
+                  layers={this.state.layers} 
+                  reloadLayers={()=>{this.setState({layers: this.state.layers})}}
+                  removeLayer={()=>{}}
+                  updateLayer={()=>{}}/>
+                <Button disableElevation variant="contained"
+                startIcon={<AddBoxIcon />}>Add Layer</Button>
               </div>
             </div>
         </div>
