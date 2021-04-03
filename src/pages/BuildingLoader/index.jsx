@@ -7,31 +7,33 @@ import MapboxWorker from 'worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker';
 import defaultJSON from './Futian.json'
 import layer from './class/layer.js'
 
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import Button from '@material-ui/core/Button';
 
 import ListView from './components/ListView'
-import AddBoxIcon from '@material-ui/icons/AddBox';
+import DialogView from './components/DialogView'
 
 mapboxgl.workerClass = MapboxWorker;
 
 class BuildingLoader extends React.Component {
   constructor() {
     super();
-    const that = this
     this.state = {
         map: ()=>({}),
         layers: [],
+        currentLayer: null,
+        isDialog: false,
+        nextIndex: 0
     };
   }
 
   componentDidMount() {
-
-    console.log(defaultJSON)
     //添加默认图层
     const layers = this.state.layers
-    const defaultLayer = new layer('Futian Center Area','geojson',defaultJSON,'#ffffff','0.8','','')
+    const nextIndex = this.state.nextIndex
+    const defaultLayer = new layer(nextIndex, 'Futian Center Area','geojson', defaultJSON,'#ffffff','0.8','','')
     layers.push(defaultLayer)
-    this.setState({layers:layers})
+    this.setState({layers:layers, nextIndex: nextIndex+1})
     //初始化底图
     mapboxgl.accessToken = 'pk.eyJ1IjoiemhhbmdqaW5neXVhbiIsImEiOiJja2R5cHhoNXYycGVtMnlteXkwZGViZDc2In0.UhckH-74AgPwMsDhPjparQ';
     const map = new mapboxgl.Map({
@@ -75,6 +77,17 @@ class BuildingLoader extends React.Component {
   componentDidUpdate() {
   }
 
+  removeLayer(layer) {
+    const targetIndex = layer.index
+    const layers = this.state.layers
+    const newLayers = []
+    layers.forEach((listLayer)=>{
+      if(listLayer.index != targetIndex){
+        newLayers.push(listLayer)
+      }
+    })
+    this.setState({layers: newLayers})
+  }
 
 
   render() {
@@ -96,12 +109,20 @@ class BuildingLoader extends React.Component {
                 <ListView 
                   layers={this.state.layers} 
                   reloadLayers={()=>{this.setState({layers: this.state.layers})}}
-                  removeLayer={()=>{}}
-                  updateLayer={()=>{}}/>
+                  removeLayer={(layer)=>{this.removeLayer(layer)}}
+                  updateLayer={(layer)=>{this.setState({currentLayer:layer},()=>{this.setState({isDialog:true})})}}/>
                 <Button disableElevation variant="contained"
-                startIcon={<AddBoxIcon />}>Add Layer</Button>
+                  startIcon={<AddBoxIcon />}
+                  onClick={()=>{this.setState({currentLayer:null},()=>{this.setState({isDialog:true})})}}
+                  >Add Layer</Button>
               </div>
             </div>
+            <DialogView
+            isDialog={this.state.isDialog}
+            currentLayer={this.state.currentLayer}
+            changeLayer={()=>{}}
+            addLayer={()=>{}}
+            handleClose={()=>{this.setState({currentLayer: null, isDialog: false})}} />
         </div>
     );
   }

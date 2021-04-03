@@ -1,5 +1,6 @@
 class layer{
-    constructor(name, type, data, color, opacity, heightField){
+    constructor(index, name, type, data, color, opacity, heightField){
+        this.index = index
         this.name = name
         this.type = type  //geojson 
         this.state = true // true or false

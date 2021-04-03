@@ -46,10 +46,10 @@ class ListView extends React.Component {
             <ListItemText primary={layer.name} />
             <ListItemSecondaryAction>
               <IconButton edge="end">
-                <SettingsIcon />
+                <SettingsIcon onClick={()=>{this.props.updateLayer(layer)}} />
               </IconButton>
               <IconButton edge="end">
-                <HighlightOffIcon />
+                <HighlightOffIcon onClick={()=>{this.props.removeLayer(layer)}} />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
@@ -62,28 +62,6 @@ class ListView extends React.Component {
     return (               
         <List component="nav" aria-label="main mailbox folders">
         {this.renderItems()}
-        {/*
-        <ListItem dense button onClick={()=>{}}>
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={true}
-              tabIndex={-1}
-              disableRipple
-              //inputProps={{ 'aria-labelledby': labelId }}
-            />
-          </ListItemIcon>
-          <ListItemText primary="Geojson" />
-          <ListItemSecondaryAction>
-            <IconButton edge="end" aria-label="comments">
-              <CommentIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <ListItem>
-          <ListItemText primary="Drafts" />
-        </ListItem>
-        */}
       </List>
     )
   }
