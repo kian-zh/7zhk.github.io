@@ -1,13 +1,7 @@
 import React from 'react'
 import style from './DialogView.module.less'
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { Input, Button, TextField, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
 
 
 
@@ -15,8 +9,15 @@ class DialogView extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
-        dialogMode: this.props.currentLayer?'Change':'Add' 
+        dialogMode: this.props.currentLayer?'Change':'Add'
       };
+      this.formRefs = {
+        name: React.createRef(),
+        source: React.createRef(),
+        color: React.createRef(),
+        opacity: React.createRef(),
+        heightField: React.createRef(),
+      }
     }
   
     componentDidMount() {
@@ -28,8 +29,37 @@ class DialogView extends React.Component {
     componentWillReceiveProps (nextProps) {
       this.setState({dialogMode: this.props.currentLayer?'Change':'Add' })
     }
+    async handleChangeOrAdd() {
+      if(this.state.dialogMode == 'Change'){
+        const index = this.props.currentLayer.index
+        const name = this.formRefs.name.current.value
+        const color = this.formRefs.color.current.value
+        const opacity = this.formRefs.opacity.current.value
+        const heightField = this.formRefs.heightField.current.value
+        await this.props.changeLayer(index, name, color, opacity, heightField)
+      }else if(this.state.dialogMode == 'Add'){
+        const source = this.formRefs.source.current.files[0]
+        const name = this.formRefs.name.current.value
+        const color = this.formRefs.color.current.value
+        const opacity = this.formRefs.opacity.current.value
+        const heightField = this.formRefs.heightField.current.value
+        await this.props.addLayer(name, source, color, opacity, heightField)
+      }
+    }
   
     render() {
+      const renderRourseInput = ()=>{
+        if(this.state.dialogMode == 'Add'){
+          return <input 
+          ref={this.formRefs.source}
+          margin="dense"
+          type='file'
+          />
+        }else{
+          return <template></template>
+        }
+      }
+
       return (
         <Dialog open={this.props.isDialog}>
           <DialogTitle>{this.state.dialogMode} Layer</DialogTitle>
@@ -37,28 +67,37 @@ class DialogView extends React.Component {
             <DialogContentText>
             {/*Hello*/}
             </DialogContentText>
+            {renderRourseInput()}
             <TextField
+              inputRef={this.formRefs.name}
               autoFocus
               margin="dense"
-              id="name"
+              label="Name"
+              defaultValue={this.props.currentLayer? this.props.currentLayer.name : ''}
+              fullWidth
+            />
+            <TextField
+              inputRef={this.formRefs.color}
+              autoFocus
+              margin="dense"
               label="Color"
-              type="email"
+              defaultValue={this.props.currentLayer? this.props.currentLayer.color : '#ffffff'}
               fullWidth
             />
             <TextField
+              inputRef={this.formRefs.opacity}
               autoFocus
               margin="dense"
-              id="name"
               label="Opacity"
-              type="email"
+              defaultValue={this.props.currentLayer? this.props.currentLayer.opacity : '0.9'}
               fullWidth
             />
             <TextField
+              inputRef={this.formRefs.heightField}
               autoFocus
               margin="dense"
-              id="name"
               label="Height Field"
-              type="email"
+              defaultValue={this.props.currentLayer? this.props.currentLayer.heightField : ''}
               fullWidth
             />
           </DialogContent>
@@ -66,7 +105,7 @@ class DialogView extends React.Component {
             <Button onClick={()=>{this.props.handleClose()}} color="primary">
             Cancel
             </Button>
-            <Button onClick={()=>{this.props.handleClose()}} color="primary">
+            <Button onClick={()=>{this.handleChangeOrAdd().then(()=>{this.props.handleClose()})}} color="primary">
             {this.state.dialogMode}
             </Button>
           </DialogActions>

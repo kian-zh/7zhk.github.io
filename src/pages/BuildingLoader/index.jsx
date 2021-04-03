@@ -31,7 +31,7 @@ class BuildingLoader extends React.Component {
     //添加默认图层
     const layers = this.state.layers
     const nextIndex = this.state.nextIndex
-    const defaultLayer = new layer(nextIndex, 'Futian Center Area','geojson', defaultJSON,'#ffffff','0.8','','')
+    const defaultLayer = new layer(nextIndex, 'Futian Center Area','geojson', defaultJSON,'#ffffff','0.8','')
     layers.push(defaultLayer)
     this.setState({layers:layers, nextIndex: nextIndex+1})
     //初始化底图
@@ -89,6 +89,32 @@ class BuildingLoader extends React.Component {
     this.setState({layers: newLayers})
   }
 
+  addLayer(name, source, color, opacity, heightField){
+    const layers = this.state.layers
+    const nextIndex = this.state.nextIndex
+    const newLayer = new layer(nextIndex, name, 'geojson', source, color, opacity, heightField)
+    layers.push(newLayer)
+    this.setState({layers:layers, nextIndex: nextIndex+1})
+  }
+
+  changeLayer(index, name, color, opacity, heightField){
+    const newLayers = []
+    const layers = this.state.layers
+    layers.forEach((layer)=>{
+      if(layer.index == index){
+        const newLayer = layer
+        newLayer.name = name
+        newLayer.color = color
+        newLayer.opacity = opacity
+        newLayer.heightField = heightField
+        newLayers.push(newLayer)
+      }else{
+        newLayers.push(layer)
+      }
+    })
+    this.setState({layers: newLayers})
+  }
+
 
   render() {
     return (
@@ -120,9 +146,10 @@ class BuildingLoader extends React.Component {
             <DialogView
             isDialog={this.state.isDialog}
             currentLayer={this.state.currentLayer}
-            changeLayer={()=>{}}
-            addLayer={()=>{}}
-            handleClose={()=>{this.setState({currentLayer: null, isDialog: false})}} />
+            changeLayer={(...args)=>{this.changeLayer(...args)}}
+            addLayer={(...args)=>{this.addLayer(...args)}}
+            handleClose={()=>{this.setState({currentLayer: null, isDialog: false})}} 
+            />
         </div>
     );
   }

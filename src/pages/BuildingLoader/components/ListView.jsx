@@ -60,7 +60,7 @@ class ListView extends React.Component {
 
   render() {
     return (               
-        <List component="nav" aria-label="main mailbox folders">
+      <List component="nav" aria-label="main mailbox folders">
         {this.renderItems()}
       </List>
     )
