@@ -6,7 +6,7 @@ class layer{
         this.state = true // true or false
         this.data = data
         this.color = color
-        this.opacity = opacity
+        this.opacity = Number(opacity)
         this.heightField = heightField
     }
     switchState(){
@@ -14,7 +14,7 @@ class layer{
     }
     setStyle(color, opacity, heightField){
         this.color = color
-        this.opacity = opacity
+        this.opacity = Number(opacity)
         this.heightField = heightField
     }
 }

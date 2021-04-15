@@ -39,12 +39,27 @@ class DialogView extends React.Component {
         await this.props.changeLayer(index, name, color, opacity, heightField)
       }else if(this.state.dialogMode == 'Add'){
         const source = this.formRefs.source.current.files[0]
+        let data = null
+        await this.readJSONAsync(source).then((postData)=>{data = postData})
+        const reader = new FileReader();
         const name = this.formRefs.name.current.value
         const color = this.formRefs.color.current.value
         const opacity = this.formRefs.opacity.current.value
         const heightField = this.formRefs.heightField.current.value
-        await this.props.addLayer(name, source, color, opacity, heightField)
+        await this.props.addLayer(name, data, color, opacity, heightField)
       }
+    }
+
+
+    readJSONAsync(source) {
+      return new Promise(function (resolve, reject) {
+          const reader = new FileReader();
+          reader.readAsText(source);
+          reader.onload = function () {
+              const data = JSON.parse(this.result);
+              resolve(data)
+          };
+      })
     }
   
     render() {
@@ -54,6 +69,7 @@ class DialogView extends React.Component {
           ref={this.formRefs.source}
           margin="dense"
           type='file'
+          accept='application/json'
           />
         }else{
           return <template></template>

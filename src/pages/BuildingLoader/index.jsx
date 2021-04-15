@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 
 import ListView from './components/ListView'
 import DialogView from './components/DialogView'
+import { clearPrewarmedResources } from 'mapbox-gl';
 
 mapboxgl.workerClass = MapboxWorker;
 
@@ -31,16 +32,15 @@ class BuildingLoader extends React.Component {
     //添加默认图层
     const layers = this.state.layers
     const nextIndex = this.state.nextIndex
-    const defaultLayer = new layer(nextIndex, 'Futian Center Area','geojson', defaultJSON,'#ffffff','0.8','')
+    const defaultLayer = new layer(nextIndex, 'Futian Center Area','geojson', defaultJSON,'#ffffff','0.8','height')
     layers.push(defaultLayer)
     this.setState({layers:layers, nextIndex: nextIndex+1})
     //初始化底图
     mapboxgl.accessToken = 'pk.eyJ1IjoiemhhbmdqaW5neXVhbiIsImEiOiJja2R5cHhoNXYycGVtMnlteXkwZGViZDc2In0.UhckH-74AgPwMsDhPjparQ';
     const map = new mapboxgl.Map({
     container: this.mapContainer,
-    //  style: 'mapbox://styles/mapbox/streets-v11',
-    //  style: 'mapbox://styles/mapbox/navigation-preview-day-v2',
     style: 'mapbox://styles/mapbox-map-design/ckhqrf2tz0dt119ny6azh975y',
+    //style: 'mapbox://styles/mapbox/streets-v11',
     center: [114.0547, 22.5425],
     zoom: 14,
     pitch: 60,
@@ -48,6 +48,7 @@ class BuildingLoader extends React.Component {
     scrollZoom: true,
     });
 
+    const that = this
     var nav = new mapboxgl.NavigationControl();
     map.addControl(nav, 'top-left');
     map.on('load', function () {
@@ -57,24 +58,24 @@ class BuildingLoader extends React.Component {
         'tileSize': 512,
         'maxzoom': 20
         });
-        map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 2.0 });
+        map.setTerrain({ 'source': 'mapbox-dem', 'exaggeration': 0 /* 拉伸参数，0代表平面，1代表正常高度 */ });
         map.addLayer({
         'id': 'sky',
         'type': 'sky',
         'paint': {
-        'sky-type': 'atmosphere',
-        'sky-atmosphere-sun': [0.0, 0.0],
-        'sky-atmosphere-sun-intensity': 15
+          'sky-type': 'atmosphere',
+          'sky-atmosphere-sun': [0.0, 0.0],
+          'sky-atmosphere-sun-intensity': 15
         }
         });
+        that.renderLayer(0)
     });
 
-    this.setState({map: map});
-
-    alert('正在建设中！')
+    this.setState({map: map})
   }
 
   componentDidUpdate() {
+    
   }
 
   removeLayer(layer) {
@@ -86,7 +87,7 @@ class BuildingLoader extends React.Component {
         newLayers.push(listLayer)
       }
     })
-    this.setState({layers: newLayers})
+    this.setState({layers: newLayers},()=>{this.unrenderLayer(layer.index)})
   }
 
   addLayer(name, source, color, opacity, heightField){
@@ -94,7 +95,7 @@ class BuildingLoader extends React.Component {
     const nextIndex = this.state.nextIndex
     const newLayer = new layer(nextIndex, name, 'geojson', source, color, opacity, heightField)
     layers.push(newLayer)
-    this.setState({layers:layers, nextIndex: nextIndex+1})
+    this.setState({layers:layers, nextIndex: nextIndex+1},()=>{this.renderLayer(nextIndex)})
   }
 
   changeLayer(index, name, color, opacity, heightField){
@@ -105,16 +106,215 @@ class BuildingLoader extends React.Component {
         const newLayer = layer
         newLayer.name = name
         newLayer.color = color
-        newLayer.opacity = opacity
+        newLayer.opacity = Number(opacity)
         newLayer.heightField = heightField
         newLayers.push(newLayer)
       }else{
         newLayers.push(layer)
       }
     })
-    this.setState({layers: newLayers})
+    this.setState({layers: newLayers},()=>{this.unrenderLayer(index);this.renderLayer(index)})
   }
 
+  switchLayer(layer){
+    const index = layer.index
+    const newLayers = []
+    const layers = this.state.layers
+    layers.forEach((layer)=>{
+      if(layer.index == index){
+        const newLayer = layer
+        newLayer.switchState()
+        newLayers.push(newLayer)
+      }else{
+        newLayers.push(layer)
+      }
+    })
+    this.setState({layers: newLayers},()=>{this.unrenderLayer(index);this.renderLayer(index)})
+  }
+
+  renderLayer(index){
+    const map = this.state.map
+    const layers = this.state.layers
+    let layer = null
+    layers.forEach((item)=>{
+      if(item.index == index){layer = item}
+    })
+    if(!layer || !layer.state){
+      return 0
+    }
+
+    const heightField = layer.heightField
+    console.log(layer)
+    layer.data.features.forEach((item) => {
+      let he = 5;  //默认建筑物高度
+      if (!item.properties[heightField]) {
+        he = 5;
+      }else {
+        he = Number(item.properties[heightField]);
+      }
+      item.properties['local_height'] = he;
+      item.properties['base_height'] = 1;
+    });
+
+    //添加数据
+    if(!map.getSource(index.toString())){
+      map.addSource(index.toString(), {
+        "type": "geojson",
+        "data": layer.data
+      });
+    }
+
+    console.log(layer.data)
+
+    map.addLayer({
+      'id': 'layer_'+index.toString(),
+      'type': 'fill',
+      'source': index.toString(),
+      'type': 'fill-extrusion',
+      'layout': {},
+      'paint': {
+        'fill-extrusion-color': layer.color,
+        'fill-extrusion-height': [
+          "interpolate", ["linear"], ["zoom"],
+          
+          14.05, ["get", "local_height"]
+        ],
+        'fill-extrusion-base': [
+          "interpolate", ["linear"], ["zoom"],
+          14, 0,
+          14.05, ["get", "base_height"]
+        ],
+        'fill-extrusion-opacity': layer.opacity
+      }
+    });
+    /*
+    map.addLayer({
+      'id': 'border_'+index.toString(),
+      'type': 'fill',
+      'source': index.toString(),
+      'type': 'fill-extrusion',
+      'layout': {},
+      'minzoom': 14,
+      'paint': {
+        'fill-extrusion-color': '#b8c9dd',
+        'fill-extrusion-height': ['get', 'local_height'],
+        'fill-extrusion-base': ['get', 'base_height'],
+        'fill-extrusion-opacity': layer.opacity
+      },
+    });
+    */
+
+
+    /*
+
+    BoxMap.addLayer({
+      'id': 'entity_layer',
+      'type': 'fill',
+      'source': 'states',
+      'type': 'fill-extrusion',
+      'layout': {},
+      'minzoom': 14,
+      'paint': {
+        'fill-extrusion-color': '#123984',
+        // use an 'interpolate' expression to add a smooth transition effect to the
+        // buildings as the user zooms in
+        // 'fill-extrusion-height': ['get', 'height'],
+        // 'fill-extrusion-base': ['get', 'base_height'],
+        'fill-extrusion-height': [
+          "interpolate", ["linear"], ["zoom"],
+          14, 0,
+          14.05, ["get", "height"]
+        ],
+        'fill-extrusion-base': [
+          "interpolate", ["linear"], ["zoom"],
+          14, 0,
+          14.05, ["get", "base_height"]
+        ],
+        'fill-extrusion-opacity': 1
+      }
+    });
+    BoxMap.addLayer({
+      'id': 'entity_borders',
+      'type': 'fill',
+      'source': 'states',
+      'type': 'fill-extrusion',
+      'layout': {},
+      'minzoom': 14,
+      'paint': {
+        'fill-extrusion-color': '#b8c9dd',
+        // use an 'interpolate' expression to add a smooth transition effect to the
+        // buildings as the user zooms in
+        'fill-extrusion-height': ['get', 'height'],
+        'fill-extrusion-base': ['get', 'base_height'],
+        'fill-extrusion-opacity': 1
+      },
+      "filter": ["in", "pkid", ""]
+    });
+
+    let popups = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false
+    });
+
+    BoxMap.on("mousemove", "entity_layer", function(e) {
+      BoxMap.getCanvas().style.cursor = 'pointer';
+      let feature = e.features[0];
+
+      let relatedFeatures = BoxMap.querySourceFeatures('states', {
+        filter: ['in', 'pkid', feature.properties.pkid]
+      });
+
+      let filter = relatedFeatures.reduce(function(memo, feature) {
+        memo.push(feature.properties.pkid);
+        return memo;
+      }, ['in', 'pkid']);
+
+      BoxMap.setFilter("entity_borders", filter);
+
+      //建筑物弹窗信息
+      let xmmc = "";
+      if (feature.properties.XMMC.length > 35) {
+        let a1 = feature.properties.XMMC.substring(0,35);
+        let a2 = feature.properties.XMMC.substring(35,feature.properties.XMMC.length);
+        xmmc = "<h1 style='color: white'><a style='color: orange'>" + a1 + "<br>" + a2+ " ("+ feature.properties.JZWMC + ")</a></h1>";
+      } else {
+        xmmc = "<h1 style='color: white'><a style='color: orange'>" + feature.properties.XMMC + " ("+ feature.properties.JZWMC + ")</a></h1>";
+      }
+      //建筑物弹窗信息
+      let html = xmmc +
+        "<h2 style='color: white'> 建筑物用途：<a style='color: orange'>"+feature.properties.JZWJBYT+"</a> </h2>" +
+        "<h2 style='color: white'> 建筑物高度：<a style='color: orange'>" +  feature.properties.JZWGD + " 米</a></h2>" +
+        "<h2 style='color: white'> 维修单位：<a style='color: orange'>"+feature.properties.WXDW+"</a> </h2>" +
+        "<h2 style='color: white'> 物业公司：<a style='color: orange'>" +  feature.properties.WYGSMC + "</a></h2>" +
+        "<h2 style='color: white'> 坐落：<a style='color: orange'>"+feature.properties.ZL+"</a> </h2>";
+
+      popups.setLngLat([feature.properties.X, feature.properties.Y])
+        .setHTML(html)
+        .addTo(BoxMap);
+
+    });
+
+    BoxMap.on("mouseleave", "entity_layer", function() {
+      BoxMap.getCanvas().style.cursor = '';
+      BoxMap.setFilter('entity_borders', ['in', 'pkid', '']);
+      popups.remove();
+
+    });
+    */
+  
+    this.setState({map: map});
+  }
+
+  unrenderLayer(index){
+    const map = this.state.map
+    if(map.getLayer('layer_'+index.toString())){
+      map.removeLayer('layer_'+index.toString());
+    };
+    if(map.getLayer('border_'+index.toString())){
+      map.removeLayer('border_'+index.toString());
+    };
+    this.setState({map: map});
+  }
 
   render() {
     return (
@@ -126,15 +326,16 @@ class BuildingLoader extends React.Component {
                 >Export</Button>
             </div>
             <div
-            style={{width:'100%',height:'90%',backgroundColor:'aqua',position:'absolute', top:'10%'}} 
-            ref={el => this.mapContainer = el}>
+              style={{width:'100%',height:'90%',backgroundColor:'aqua',position:'absolute', top:'10%'}} 
+              ref={el => this.mapContainer = el}>
             </div>
             <div className={style.toolWindow}>
               <h3 style={{fontWeight:'400'}} >DATA</h3>
               <div className={style.listContainer}>
                 <ListView 
                   layers={this.state.layers} 
-                  reloadLayers={()=>{this.setState({layers: this.state.layers})}}
+                  //reloadLayers={()=>{this.setState({layers: this.state.layers})}}
+                  switchLayer={(layer)=>{this.switchLayer(layer)}}
                   removeLayer={(layer)=>{this.removeLayer(layer)}}
                   updateLayer={(layer)=>{this.setState({currentLayer:layer},()=>{this.setState({isDialog:true})})}}/>
                 <Button disableElevation variant="contained"

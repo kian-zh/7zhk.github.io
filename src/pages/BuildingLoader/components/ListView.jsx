@@ -34,7 +34,7 @@ class ListView extends React.Component {
       const items = []
       this.props.layers.forEach((layer)=>{
         items.push(        
-          <ListItem key={layer.name} dense button onClick={()=>{layer.switchState();this.props.reloadLayers()}}>
+          <ListItem key={layer.name} dense button onClick={()=>{this.props.switchLayer(layer)}}>
             <ListItemIcon>
               <Checkbox
                 edge="start"
